@@ -10,6 +10,8 @@ use Spatie\Permission\Models\Role;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
+
+//use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -28,7 +30,10 @@ class UsersController extends Controller
     {
         return view('admin.users',
             [
-                'users' => User::with('photos')->withTrashed()->get(),
+                'users' => User::with('photos')
+                    ->where('id', '!=', auth()->id())
+                    ->withTrashed()
+                    ->get(),
                 'countries' => Country::all(),
                 'roles' => Role::all()
             ]);
@@ -73,16 +78,23 @@ class UsersController extends Controller
     public function update(User $user)
     {
         $inputs = request()->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user), 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
             'email' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
-            'is_active' => ['required'],
             'country_id' => ['string'],
             'address' => ['string'],
         ]);
 
-        $user->roles()->sync(request()->input('roles'));
         $user->update($inputs);
+
+        request()->validate(['role' => 'required|string']);
+        $user->syncRoles(request()->input('role'));
+
+        if (request()->get('password')) {
+            $user->update(['password' => request()->get('password')]);
+        }
+        return redirect()->back()->with('success_message', 'User edited.');
     }
 
     // Async updating avatar
@@ -104,18 +116,6 @@ class UsersController extends Controller
         ]);
     }
 
-    // Update password
-    public function updatePassword($id)
-    {
-        $user = User::whereId($id);
-
-        $inputs = request()->validate([
-            'password' => 'required|string|confirmed|min:8',
-        ]);
-
-        $inputs['password'] = Hash::make($inputs['password']);
-        $user->update($inputs);
-    }
 
     // Restoring user
     public function restore(User $user, $id)
@@ -147,29 +147,15 @@ class UsersController extends Controller
         ]);
     }
 
-    // Profile page
-    public function profile(User $user)
-    {
-        return view('admin.users.profile', [
-            'user' => $user,
-            'countries' => Country::all(),
-            'roles' => Role::all(),
-        ]);
-    }
-
-    // Profile update
-    public function profileUpdate(User $user)
-    {
-        $inputs = request()->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user), 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
-            'email' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
-            'country_id' => ['string'],
-            'address' => ['string'],
-        ]);
-
-        $user->update($inputs);
-    }
+    //! Profile page
+//    public function profile(User $user)
+//    {
+//        return view('admin.users.profile', [
+//            'user' => $user,
+//            'countries' => Country::all(),
+//            'roles' => Role::all(),
+//        ]);
+//    }
 
     // Async update new avatar
     public function updateProfilePhoto(User $user)
@@ -204,5 +190,33 @@ class UsersController extends Controller
         User::whereIn('id', explode(",", $ids))->restore();
         return response()->json(['success' => "Users restored successfully."]);
     }
+
+
+    // Update password
+    public function updatePassword($id)
+    {
+        $user = User::whereId($id);
+
+        $inputs = request()->validate([
+            'password' => 'required|string|confirmed|min:8',
+        ]);
+
+        $inputs['password'] = Hash::make($inputs['password']);
+        $user->update($inputs);
+    }
+
+    // Profile update
+//    public function profileUpdate(User $user)
+//    {
+//        $inputs = request()->validate([
+//            'name' => ['required', 'string', 'max:255'],
+//            'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user), 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+//            'email' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
+//            'country_id' => ['string'],
+//            'address' => ['string'],
+//        ]);
+//
+//        $user->update($inputs);
+//    }
 
 }

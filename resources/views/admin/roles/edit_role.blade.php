@@ -28,7 +28,7 @@
                     <label for="permissions"
                            class="col-md-4 col-form-label text-md-right">{{ __('Permissions') }}</label>
                     <div class="col-md-6">
-                        <select class="roles-multiple form-control" name="permissions[]" multiple="multiple">
+                        <select class="permissions-multiple form-control" name="permissions[]" multiple="multiple">
                             @foreach ($role->permissions as $permission)
                                 <option value="{{ $permission->id }}" selected>{{ $permission->name }}</option>
                             @endforeach

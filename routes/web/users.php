@@ -9,8 +9,8 @@ Route::group([
     'middleware' => ['auth'],
 ], function () {
     Route::get('/', 'HomeController')->name('admin');
-    Route::get('/users/{user}/profile', 'UsersController@profile')->name('user.profile.show');
-    Route::put('/users/{user}/profile', 'UsersController@profileUpdate')->name('user.profile.update');
+//    Route::get('/users/{user}/profile', 'UsersController@profile')->name('user.profile.show');
+//    Route::put('/users/{user}/profile', 'UsersController@profileUpdate')->name('user.profile.update');
 
     Route::get('/users/{id}/edit/new-password', 'UsersController@editPassword')
         ->name('users.edit.password');
@@ -23,11 +23,12 @@ Route::group([
 //? Users
 Route::group([
     'namespace' => 'Admin',
-    'middleware' => ['auth'],
+    'middleware' => ['auth', 'admin'],
 ], function () {
     Route::resource('/users', 'UsersController')
         ->name('index', 'users')
         ->name('store', 'users.store')
+//        ->name('edit', 'users.edit')
         ->name('update', 'users.update')
         ->name('destroy', 'user.delete');
 
