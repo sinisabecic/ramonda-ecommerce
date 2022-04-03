@@ -43,8 +43,7 @@
                         <th>Action</th>
                     </tr>
                     </thead>
-                    {{--                    <tfoot>                    --}}
-                    {{--                    </tfoot>--}}
+
                     <tbody>
                     @if($permissions)
                         @foreach($permissions as $permission)
@@ -90,41 +89,23 @@
                                 <td>
                                     <div class="d-inline-flex">
 
-                                        @if(!$permission->deleted_at)
-                                            <div class="px-1">
-                                                <button type="button"
-                                                        onclick="deletePermission('{{ $permission->id }}')"
-                                                        class="btn btn-danger deletePermissionBtn">
-                                                    Delete
-                                                </button>
-                                            </div>
-                                        @else
-                                            <div class="px-1">
-                                                <button type="button"
-                                                        onclick="restorePermission('{{ $permission->id }}')"
-                                                        class="btn btn-dark restorePermissionBtn">
-                                                    Restore
-                                                </button>
-                                            </div>
-                                        @endif
-
                                         <div class="px-1">
                                             <button type="button"
-                                                    onclick="forceDeletePermission('{{ $permission->id }}')"
-                                                    class="btn btn-warning text-dark forceDeletePermissionBtn">
-                                                Remove
+                                                    onclick="deletePermission('{{ $permission->id }}')"
+                                                    class="btn btn-danger deletePermissionBtn">
+                                                Delete
                                             </button>
                                         </div>
-                                        @if(!$permission->deleted_at)
-                                            <div class="px-1">
-                                                <a href="{{ route("permissions.edit", $permission->id) }}"
-                                                   id="editpermission"
-                                                   class="btn btn-primary editPermissionBtn"
-                                                   data-id="{{ $permission->id }}">
-                                                    Edit
-                                                </a>
-                                            </div>
-                                    @endif
+
+                                        <div class="px-1">
+                                            <a href="{{ route("permissions.edit", $permission->id) }}"
+                                               id="editpermission"
+                                               class="btn btn-primary editPermissionBtn"
+                                               data-id="{{ $permission->id }}">
+                                                Edit
+                                            </a>
+                                        </div>
+
                                 </td>
                             </tr>
                         @endforeach
@@ -366,81 +347,6 @@
                 }
             });
         }
-
-
-        //? Za permanentno brisanje korisnika
-        // * Noviji nacin
-        function forceDeletePermission(item) {
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            Swal.fire({
-                title: 'Delete permanently?',
-                text: "You won't be able to restore permission!",
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#3C4B64',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes!',
-                toast: true,
-                position: 'top-right',
-
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const formData = {id: item};
-                    $.ajax({
-                        type: "DELETE",
-                        url: "/admin/permissions/" + formData.id + "/remove",
-                        data: formData,
-                        success: function (response) {
-                            if (response.error) {
-                                console.log(response.error);
-                                Swal.fire({
-                                    title: 'Error! Try again.',
-                                    // text: '',
-                                    icon: 'warning',
-                                    toast: true,
-                                    position: 'top-right',
-                                    showConfirmButton: false,
-                                    timer: 2500,
-                                })
-                            } else {
-                                Swal.fire({
-                                    title: 'Permission permanently deleted!',
-                                    // text: '',
-                                    icon: 'success',
-                                    toast: true,
-                                    position: 'top-right',
-                                    showConfirmButton: false,
-                                    timer: 2500,
-
-                                })
-                                console.log("Permanentno izbrisana dozvola ID: " + formData.id);
-
-                                // window.location.reload(true);
-                                $(".row-permission[data-id=" + formData.id + "]")
-                                    .children('td, th')
-                                    .animate({
-                                        padding: 0
-                                    })
-                                    .wrapInner('<div />')
-                                    .children()
-                                    .slideUp(function () {
-                                        $(this).closest('tr').remove();
-                                    });
-                                // .toggleClass("btn-danger")
-                                // .toggleClass("btn-dark")
-                            }
-                        }
-                    })
-                }
-            });
-        }
-
 
         function clearFields(form) {
             $(':input', form)

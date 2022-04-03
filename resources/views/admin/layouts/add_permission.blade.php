@@ -1,4 +1,4 @@
-<div class="modal fade" id="addPermissionModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
+<div class="modal fadeIn" id="addPermissionModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -24,23 +24,6 @@
                                    autofocus>
 
                             @error('permission')
-                            <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-
-
-                    <div class="form-group row">
-                        <label for="description"
-                               class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
-                        <div class="col-md-6">
-                            <textarea class="form-control @error('description') is-invalid @enderror" name="description"
-                                      id="description" cols="30" rows="5"></textarea>
-
-
-                            @error('description')
                             <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

@@ -75,7 +75,6 @@
                         <th>Avatar</th>
                         <th>Name</th>
                         <th>Role(s)</th>
-                        <th>Status</th>
                         <th>E-mail</th>
                         <th>Country</th>
                         <th>Registered</th>
@@ -86,144 +85,131 @@
 
                     <tbody>
                     @foreach($users as $user)
-                        @foreach ($user->photos as $img)
-                            <tr class="row-user sub_chk" data-id="{{ $user->id }}">
-                                <td>
-                                    <input type="checkbox" class="sub_chk" data-id="{{$user->id}}">
-                                </td>
-                                <td><span class="small">{{ $user->id }}</span></td>
-                                <td>
-                                    <p class="small"><strong>{{ $user->username }}</strong></p>
-                                </td>
-                                <td>
+                        <tr class="row-user sub_chk" data-id="{{ $user->id }}">
+                            <td>
+                                <input type="checkbox" class="sub_chk" data-id="{{$user->id}}">
+                            </td>
+                            <td><span class="small">{{ $user->id }}</span></td>
+                            <td>
+                                <p class="small"><strong>{{ $user->username }}</strong></p>
+                            </td>
+                            <td>
+                                @foreach ($user->photos as $img)
                                     <img src="{{ $user->avatar() }}" alt="{{ $user->photo->url }}"
                                          height="43px"
                                          width="43px"
                                          class="img-cover rounded">
-                                </td>
-                                <td>
-                                    <a href="{{ route("users.edit", $user->id) }}">
-                                        <span class="small font-weight-bold text-primary">{{ $user->name }}</span>
-                                    </a>
-                                </td>
-                                <td class="role">
-                                    @foreach($user->roles as $role)
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item m-0 p-0 py-1 bg-transparent">
-                                                @switch($role->name)
-                                                    @case(ucfirst("admin"))
-                                                    <span
-                                                            class="badge badge-pill badge-dark rounded-0">{{ $role->name }}</span>
-                                                    @break
-                                                    @case(ucfirst("user"))
-                                                    <span
-                                                            class="badge badge-pill badge-success rounded-0">{{ $role->name }}</span>
-                                                    @break
-                                                    @case(ucfirst("subscriber"))
-                                                    <span
-                                                            class="badge badge-pill badge-warning text-dark rounded-0">{{ $role->name }}</span>
-                                                    @break
-                                                    @case(ucfirst("partner"))
-                                                    <span
-                                                            class="badge badge-pill badge-info rounded-0">{{ $role->name }}</span>
-                                                    @break
-                                                    @case(ucfirst("author"))
-                                                    <span
-                                                            class="badge badge-pill badge-primary rounded-0">{{ $role->name }}</span>
-                                                    @break
-                                                    @case(ucfirst("nomad"))
-                                                    <span
-                                                            class="badge badge-pill badge-danger rounded-0">{{ $role->name }}</span>
-                                                    @break
-                                                    @default(ucfirst("nomad"))
-                                                    <span
-                                                            class="badge badge-pill badge-danger rounded-0">{{ $role->name }}</span>
-                                                @endswitch
-                                            </li>
-                                        </ul>
-                                    @endforeach
-                                </td>
-                                <td>
-                                    @switch($user->is_active)
-                                        @case("1")
-                                        <span
-                                                class="badge badge-pill badge-success rounded">{{ __('Active') }}</span>
-                                        @break
-                                        @case("0")
-                                        <span
-                                                class="badge badge-pill badge-danger rounded">{{ __('Not Active') }}</span>
-                                        @break
-                                        @default("0")
-                                    @endswitch
-                                </td>
-                                <td class="small font-weight-bold">
-                                    <a href="mailto:{{ $user->email }}" class="text-dark">{{ $user->email }}</a>
-                                </td>
-                                <td class="country small">{{ $user->country->name }}</td>
-                                <td>
+                                @endforeach
+                            </td>
+                            <td>
+                                <a href="{{ route("users.edit", $user->id) }}">
+                                    <span class="small font-weight-bold text-primary">{{ $user->name }}</span>
+                                </a>
+                            </td>
+                            <td class="role">
+                                @foreach($user->roles as $role)
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item m-0 p-0 py-1 bg-transparent">
+                                            @switch($role->name)
+                                                @case(ucfirst("admin"))
+                                                <span
+                                                        class="badge badge-pill badge-dark rounded-0">{{ $role->name }}</span>
+                                                @break
+                                                @case(ucfirst("user"))
+                                                <span
+                                                        class="badge badge-pill badge-success rounded-0">{{ $role->name }}</span>
+                                                @break
+                                                @case(ucfirst("subscriber"))
+                                                <span
+                                                        class="badge badge-pill badge-warning text-dark rounded-0">{{ $role->name }}</span>
+                                                @break
+                                                @case(ucfirst("partner"))
+                                                <span
+                                                        class="badge badge-pill badge-info rounded-0">{{ $role->name }}</span>
+                                                @break
+                                                @case(ucfirst("author"))
+                                                <span
+                                                        class="badge badge-pill badge-primary rounded-0">{{ $role->name }}</span>
+                                                @break
+                                                @case(ucfirst("nomad"))
+                                                <span
+                                                        class="badge badge-pill badge-danger rounded-0">{{ $role->name }}</span>
+                                                @break
+                                                @default(ucfirst("nomad"))
+                                                <span
+                                                        class="badge badge-pill badge-danger rounded-0">{{ $role->name }}</span>
+                                            @endswitch
+                                        </li>
+                                    </ul>
+                                @endforeach
+                            </td>
+                            <td class="small font-weight-bold">
+                                <a href="mailto:{{ $user->email }}" class="text-dark">{{ $user->email }}</a>
+                            </td>
+                            <td class="country small">{{ $user->country->name }}</td>
+                            <td>
                                  <span class="badge badge-pill badge-secondary small">
                                      {{ $user->created_at->diffForHumans() }}
                                 </span>
-                                </td>
-                                <td>
+                            </td>
+                            <td>
                                 <span class="badge badge-pill small">
                                     {{ $user->created_at->format('d.m.Y. H:i:s') }}
                                 </span>
-                                </td>
-                                <td>
-                                    <div class="d-inline-flex">
+                            </td>
+                            <td>
+                                <div class="d-inline-flex">
 
-                                        @if(!$user->deleted_at)
-                                            <div class="px-1">
-                                                <button type="button" onclick="deleteUser('{{ $user->id }}')"
-                                                        class="btn btn-danger deleteBtn">
-                                                    Delete
-                                                </button>
-                                            </div>
-                                        @else
-                                            @if(auth()->user()->is_admin)
-                                                <div class="px-1">
-                                                    <button type="button" onclick="restoreUser('{{ $user->id }}')"
-                                                            class="btn btn-dark restoreBtn">
-                                                        Restore
-                                                    </button>
-                                                </div>
-                                            @endif
-                                        @endif
-
+                                    @if(!$user->deleted_at)
+                                        <div class="px-1">
+                                            <button type="button" onclick="deleteUser('{{ $user->id }}')"
+                                                    class="btn btn-danger deleteBtn">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    @else
                                         @if(auth()->user()->is_admin)
                                             <div class="px-1">
-                                                <button type="button" onclick="forceDeleteUser('{{ $user->id }}')"
-                                                        class="btn btn-warning text-dark forceDeleteBtn">
-                                                    Remove
+                                                <button type="button" onclick="restoreUser('{{ $user->id }}')"
+                                                        class="btn btn-dark restoreBtn">
+                                                    Restore
                                                 </button>
                                             </div>
                                         @endif
-                                        @if(!$user->deleted_at)
-
-                                            <div class="btn-group editUserBtn">
-                                                <button type="button" class="btn btn-primary dropdown-toggle"
-                                                        data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                    Edit
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a href="{{ route("users.edit", $user->id) }}" id="edituser"
-                                                       class="dropdown-item" data-id="{{ $user->id }}">
-                                                        Edit data
-                                                    </a>
-                                                    <a href="{{ route("users.edit.password", $user->id) }}"
-                                                       id="editpassword"
-                                                       class="dropdown-item"
-                                                       data-id="{{ $user->id }}">
-                                                        Edit password
-                                                    </a>
-                                                </div>
-                                            </div>
                                     @endif
-                                </td>
-                            </tr>
-                        @endforeach
+
+                                    @if(auth()->user()->is_admin)
+                                        <div class="px-1">
+                                            <button type="button" onclick="forceDeleteUser('{{ $user->id }}')"
+                                                    class="btn btn-warning text-dark forceDeleteBtn">
+                                                Remove
+                                            </button>
+                                        </div>
+                                    @endif
+                                    @if(!$user->deleted_at)
+
+                                        <div class="btn-group editUserBtn">
+                                            <button type="button" class="btn btn-primary dropdown-toggle"
+                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                Edit
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a href="{{ route("users.edit", $user->id) }}" id="edituser"
+                                                   class="dropdown-item" data-id="{{ $user->id }}">
+                                                    Edit data
+                                                </a>
+                                                <a href="{{ route("users.edit.password", $user->id) }}"
+                                                   id="editpassword"
+                                                   class="dropdown-item"
+                                                   data-id="{{ $user->id }}">
+                                                    Edit password
+                                                </a>
+                                            </div>
+                                        </div>
+                                @endif
+                            </td>
+                        </tr>
                     @endforeach
                     </tbody>
                 </table>

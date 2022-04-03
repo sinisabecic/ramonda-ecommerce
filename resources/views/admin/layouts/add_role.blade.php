@@ -1,4 +1,5 @@
-<div class="modal animated fadeIn" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
+<div class="modal animated--fade-in" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -33,7 +34,7 @@
                         <label for="permissions"
                                class="col-md-4 col-form-label text-md-right">{{ __('Permissions') }}</label>
                         <div class="col-md-6">
-                            <select class=permissions-multiple form-control" name="permissions[]" multiple="multiple">
+                            <select class="permissions-multiple form-control" name="permissions[]" multiple="multiple">
                                 @foreach ($permissions as $permission)
                                     <option value="{{ $permission->id }}">{{ $permission->name }}</option>
                                 @endforeach

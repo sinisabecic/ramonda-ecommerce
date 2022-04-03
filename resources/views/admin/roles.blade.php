@@ -7,7 +7,6 @@
 
 @section('page-title', 'Roles')
 
-
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -38,7 +37,6 @@
                         <th>Permissions</th>
                         <th>Created</th>
                         <th>Created at</th>
-                        <th>Deleted at</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -57,31 +55,31 @@
                                         @switch($role->name)
                                             @case(ucfirst("admin"))
                                             <span
-                                                class="badge badge-pill badge-dark rounded-0">{{ $role->name }}</span>
+                                                    class="badge badge-pill badge-dark rounded-0">{{ $role->name }}</span>
                                             @break
                                             @case(ucfirst("user"))
                                             <span
-                                                class="badge badge-pill badge-success rounded-0">{{ $role->name }}</span>
+                                                    class="badge badge-pill badge-success rounded-0">{{ $role->name }}</span>
                                             @break
                                             @case(ucfirst("subscriber"))
                                             <span
-                                                class="badge badge-pill badge-warning text-dark rounded-0">{{ $role->name }}</span>
+                                                    class="badge badge-pill badge-warning text-dark rounded-0">{{ $role->name }}</span>
                                             @break
                                             @case(ucfirst("partner"))
                                             <span
-                                                class="badge badge-pill badge-info rounded-0">{{ $role->name }}</span>
+                                                    class="badge badge-pill badge-info rounded-0">{{ $role->name }}</span>
                                             @break
                                             @case(ucfirst("author"))
                                             <span
-                                                class="badge badge-pill badge-primary rounded-0">{{ $role->name }}</span>
+                                                    class="badge badge-pill badge-primary rounded-0">{{ $role->name }}</span>
                                             @break
                                             @case(ucfirst("nomad"))
                                             <span
-                                                class="badge badge-pill badge-danger rounded-0">{{ $role->name }}</span>
+                                                    class="badge badge-pill badge-danger rounded-0">{{ $role->name }}</span>
                                             @break
                                             @default(ucfirst("nomad"))
                                             <span
-                                                class="badge badge-pill badge-danger rounded-0">{{ $role->name }}</span>
+                                                    class="badge badge-pill badge-danger rounded-0">{{ $role->name }}</span>
                                         @endswitch
                                     </li>
                                 </ul>
@@ -104,31 +102,22 @@
                                 </span>
                             </td>
                             <td>
-                                <span class="badge badge-pill small deletedAt">
-                                     @if($role->deleted_at)
-                                        {{ $role->deleted_at->format('d.m.Y. H:i:s') }}
-                                    @else
-                                        {{ 'NULL' }}
-                                    @endif
-                                </span>
-                            </td>
-                            <td>
                                 <div class="d-inline-flex">
 
-                                        <div class="px-1">
-                                            <button type="button" onclick="deleteRole('{{ $role->id }}')"
-                                                    class="btn btn-danger deleteRoleBtn">
-                                                Delete
-                                            </button>
-                                        </div>
+                                    <div class="px-1">
+                                        <button type="button" onclick="deleteRole('{{ $role->id }}')"
+                                                class="btn btn-danger deleteRoleBtn">
+                                            Delete
+                                        </button>
+                                    </div>
 
 
-                                        <div class="px-1">
-                                            <a href="{{ route("roles.edit", $role->id) }}" id="editrole"
-                                               class="btn btn-primary editRoleBtn" data-id="{{ $role->id }}">
-                                                Edit
-                                            </a>
-                                        </div>
+                                    <div class="px-1">
+                                        <a href="{{ route("roles.edit", $role->id) }}" id="editrole"
+                                           class="btn btn-primary editRoleBtn" data-id="{{ $role->id }}">
+                                            Edit
+                                        </a>
+                                    </div>
 
                             </td>
                         </tr>

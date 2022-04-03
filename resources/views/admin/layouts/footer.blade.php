@@ -73,8 +73,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.permissions-multiple').select2();
+        $('.categories-multiple').select2();
         $('.role-select').select2();
     });
 </script>

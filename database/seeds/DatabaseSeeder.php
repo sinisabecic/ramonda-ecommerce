@@ -2,6 +2,7 @@
 
 
 use App\Account;
+use App\Category;
 use App\Country;
 use App\Organization;
 use App\User;
@@ -22,8 +23,11 @@ class DatabaseSeeder extends Seeder
     {
         Account::create(['name' => 'Ramonda LLC']);
         Country::create(['name' => 'Montenegro', 'short_name' => 'ME']);
+        Category::create(['name' => 'New', 'slug' => 'new']);
+        Category::create(['name' => 'Games', 'slug' => 'games']);
+        Category::create(['name' => 'Mobile phones', 'slug' => 'mobile-phones']);
 
-               // Create Permissions
+        // Create Permissions
         $adminPermissions = [
             'admin_access',
             'permission_create',
@@ -46,35 +50,36 @@ class DatabaseSeeder extends Seeder
             'role_show',
             'role_delete',
             'role_access',
+            'site_access',
         ];
 
         // Create Roles
         $role_admin = Role::create(['name' => 'Admin']);
         $role_user = Role::create(['name' => 'User']);
 
-        foreach ($adminPermissions as $permission){
+        foreach ($adminPermissions as $permission) {
             Permission::create(['name' => $permission]);
             $role_admin->givePermissionTo($permission);
-            // $admin->givePermissionTo($permission); // This is for special permissions.
         }
 
         // Add a user namely admin
         $admin = User::create([
             'account_id' => 1,
-            'first_name' => 'Sinisa',
-            'last_name' => 'Becic',
-            'username' => 'sinisa',
-            'email' => 'sinisa.becic@outlook.com',
-            'password' => 'sinisa94', // Model has set password attribute method
+            'first_name' => 'Admin',
+            'last_name' => 'Ramonda',
+            'username' => 'admin',
+            'email' => 'admin@ramonda.me',
+            'password' => 'password', // Model has set password attribute method
             'country_id' => 1,
         ]);
+
         $user = User::create([
             'account_id' => 1,
             'first_name' => 'Ava',
             'last_name' => 'Rodriguez',
             'username' => 'ava',
             'email' => 'ava@ramonda.me',
-            'password' => 'sinisa94', // Model has set password attribute method
+            'password' => 'password', // Model has set password attribute method
             'country_id' => 1,
         ]);
         $user->photo()->create(['url' => 'default.png']);

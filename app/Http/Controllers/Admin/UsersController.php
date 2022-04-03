@@ -50,6 +50,7 @@ class UsersController extends Controller
             'password' => $request->password,
             'country_id' => $request->country,
             'address' => $request->address,
+            'account_id' => 1,
         ]);
 
         if (request()->hasFile('avatar')) {

@@ -125,19 +125,17 @@
 
                 <div class="form-group">
                     <label for="categories" class="col-form-label text-md-left">{{ __('Categories') }}</label>
-                    <div class="col-md-6">
+                    <select class="categories-multiple form-control" name="categories[]" multiple="multiple">
                         @foreach ($categories as $category)
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="categories[]"
-                                       value="{{ $category->id }}" id="{{ $category->name }}"
-                                       @isset($product) @if(in_array($category->id, $product->categories->pluck('id')->toArray())) checked @endif @endisset
-                                >
-                                <label for="{{ $category->name }}" class="form-check-label">
-                                    {{ $category->name }}
-                                </label>
-                            </div>
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
-                    </div>
+                    </select>
+
+                    @error('categories')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
                 <div class="form-group">
