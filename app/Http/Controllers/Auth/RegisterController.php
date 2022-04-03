@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Country;
-use App\Role;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
@@ -54,7 +55,8 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'unique:users', 'regex:/^[A-Za-z0-9_]+$/'],
             'email' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -64,11 +66,9 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $countries = Country::all();
-        $roles = Role::all();
 
         return view('auth.register')->with([
             'countries' => $countries,
-            'roles' => $roles
         ]);
     }
 
@@ -81,12 +81,13 @@ class RegisterController extends Controller
     protected function create(array $input)
     {
         $user = User::create([
-            'name' => $input['name'],
+            'account_id' => 1,
+            'first_name' => $input['first_name'],
+            'last_name' => $input['last_name'],
             'email' => $input['email'],
             'username' => $input['username'],
             'password' => $input['password'], // There is no need to type Hash::make. In User model watch setPasswordAttribute function.
-//            'is_active' => 0, in database '0' is default
-            'country_id' => $input['country'],
+            'country_id' => 1,
             'address' => $input['address'],
         ]);
 
@@ -100,8 +101,8 @@ class RegisterController extends Controller
 //        }
 
         $user->photo()->create(['url' => 'user.jpg']);
-
-        $user->roles()->sync([5]); // every new registered user is 'nomad'
+        $user->assignRole('User');
+//        $user->roles()->sync([5]); // every new registered user is 'nomad'
 
         //Mail::to($user->email)->send(new WelcomeMail());
 //        return $user && response()->json();

@@ -35,7 +35,6 @@
                         {{--                        </th>--}}
                         <th>ID</th>
                         <th>Role</th>
-                        <th>Slug</th>
                         <th>Permissions</th>
                         <th>Created</th>
                         <th>Created at</th>
@@ -88,12 +87,9 @@
                                 </ul>
                             </td>
                             <td>
-                                <p class="small"><strong>{{ $role->slug }}</strong></p>
-                            </td>
-                            <td>
                                 <p class="small"><strong>
-                                        @foreach($role->permissions as $role_permission)
-                                            {{ $role_permission->slug }};
+                                        @foreach($role->permissions->pluck('name') as $role_permission)
+                                            {{ $role_permission }};
                                         @endforeach
                                     </strong></p>
                             </td>
@@ -119,36 +115,21 @@
                             <td>
                                 <div class="d-inline-flex">
 
-                                    @if(!$role->deleted_at)
                                         <div class="px-1">
                                             <button type="button" onclick="deleteRole('{{ $role->id }}')"
                                                     class="btn btn-danger deleteRoleBtn">
                                                 Delete
                                             </button>
                                         </div>
-                                    @else
-                                        <div class="px-1">
-                                            <button type="button" onclick="restoreRole('{{ $role->id }}')"
-                                                    class="btn btn-dark restoreRoleBtn">
-                                                Restore
-                                            </button>
-                                        </div>
-                                    @endif
 
-                                    <div class="px-1">
-                                        <button type="button" onclick="forceDeleteRole('{{ $role->id }}')"
-                                                class="btn btn-warning text-dark forceDeleteRoleBtn">
-                                            Remove
-                                        </button>
-                                    </div>
-                                    @if(!$role->deleted_at)
+
                                         <div class="px-1">
                                             <a href="{{ route("roles.edit", $role->id) }}" id="editrole"
                                                class="btn btn-primary editRoleBtn" data-id="{{ $role->id }}">
                                                 Edit
                                             </a>
                                         </div>
-                                @endif
+
                             </td>
                         </tr>
                     @endforeach
@@ -254,8 +235,6 @@
         });
 
 
-        //? Za brisanje korisnika
-        // * Noviji nacin
         function deleteRole(item) {
 
             $.ajaxSetup({
@@ -265,7 +244,7 @@
             });
 
             Swal.fire({
-                title: 'Delete user?',
+                title: 'Delete role?',
                 // text: "You won't be able to revert this!",
                 icon: 'question',
                 showCancelButton: true,
@@ -308,8 +287,16 @@
                                 console.log("Izbrisana rola ID: " + formData.id);
 
                                 // window.location.reload(true);
-                                $(".row-role[data-id=" + formData.id + "] .deleteRoleBtn").text("Deleted").attr("disabled", "disabled");
-                                $(".row-role[data-id=" + formData.id + "] .editRoleBtn").fadeOut('slow');
+                                $(".row-role[data-id=" + formData.id + "]")
+                                    .children('td, th')
+                                    .animate({
+                                        padding: 0
+                                    })
+                                    .wrapInner('<div />')
+                                    .children()
+                                    .slideUp(function () {
+                                        $(this).closest('tr').remove();
+                                    });
 
                                 var currentdate = new Date();
                                 var timestamp = currentdate.getDate() + "."

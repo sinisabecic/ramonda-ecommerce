@@ -188,6 +188,14 @@
     margin-bottom: 14px;
   }
 }
+.auth-pages select {
+  border: 1px solid #919191;
+  padding: 16px 10px;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
 
 /* Small Devices, Tablets */
 

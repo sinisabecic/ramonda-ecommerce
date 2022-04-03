@@ -1,4 +1,4 @@
-<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+<div class="modal animated fadeIn" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -98,17 +98,6 @@
                                 @foreach ($countries as $country)
                                     <option value="{{ $country->id }}">{{ $country->name }}</option>
                                 @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="is_active" class="col-md-4 col-form-label text-md-right">{{ __('Status') }}</label>
-
-                        <div class="col-md-6">
-                            <select class="form-control" name="is_active" id="is_active">
-                                <option value="1">{{ __('Active') }}</option>
-                                <option value="0">{{ __('Not active') }}</option>
                             </select>
                         </div>
                     </div>

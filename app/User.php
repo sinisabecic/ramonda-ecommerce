@@ -2,18 +2,13 @@
 
 namespace App;
 
-<<<<<<< HEAD
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-=======
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
->>>>>>> 0c61f56 (Ramonda Ecommerce (new) fixed bugs)
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,10 +16,8 @@ class User extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
-<<<<<<< HEAD
-=======
     use HasRoles;
->>>>>>> 0c61f56 (Ramonda Ecommerce (new) fixed bugs)
+
 
     /**
      * The attributes that are mass assignable.
@@ -58,104 +51,28 @@ class User extends Authenticatable
         return true;
     }
 
-
-    public function setPasswordAttribute($value)
+    public function account()
     {
-        $this->attributes['password'] = Hash::make($value);
+        return $this->belongsTo(Account::class);
     }
 
-
-//    public function posts()
-//    {
-//        return $this->hasMany(Post::class, 'user_id', 'id');
-//    }
-
-    public function permissions()
+    public function getNameAttribute()
     {
-        return $this->belongsToMany(Permission::class)
-            ->withPivot('created_at');
+        return $this->first_name.' '.$this->last_name;
     }
 
-
-<<<<<<< HEAD
-    public function roles()
+    public function scopeOrderByName($query)
     {
-        return $this->belongsToMany(
-            Role::class,
-            'role_user', 'user_id', 'role_id')->withPivot('created_at');
+        $query->orderBy('last_name')->orderBy('first_name');
     }
 
-    public function role()
+    public function setPasswordAttribute($password)
     {
-        foreach (auth()->user()->roles as $role) {
-            return $role;
-        }
+        $this->attributes['password'] = Hash::needsRehash($password) ?
+                                        Hash::make($password) :
+                                        $password;
+//        $this->attributes['password'] = Hash::make($password);
     }
-
-    public function hasAnyRole($roles)
-    {
-        if (is_array($roles)) {
-            foreach ($roles as $role) {
-                if ($this->hasRole($role)) {
-                    return true;
-                }
-            }
-        } else {
-            if ($this->hasRole($roles)) {
-                return false;
-            }
-        }
-        return false;
-    }
-
-
-    public function hasRole($role_name)
-    {
-        if ($this->roles->where('slug', $role_name)->first()) {
-            return true;
-        }
-        return false;
-    }
-=======
-    // public function roles()
-    // {
-    //     return $this->belongsToMany(
-    //         Role::class,
-    //         'role_user', 'user_id', 'role_id')->withPivot('created_at');
-    // }
-
-    // public function role()
-    // {
-    //     foreach (auth()->user()->roles as $role) {
-    //         return $role;
-    //     }
-    // }
-
-    // public function hasAnyRole($roles)
-    // {
-    //     if (is_array($roles)) {
-    //         foreach ($roles as $role) {
-    //             if ($this->hasRole($role)) {
-    //                 return true;
-    //             }
-    //         }
-    //     } else {
-    //         if ($this->hasRole($roles)) {
-    //             return false;
-    //         }
-    //     }
-    //     return false;
-    // }
-
-
-    // public function hasRole($role_name)
-    // {
-    //     if ($this->roles->where('slug', $role_name)->first()) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
->>>>>>> 0c61f56 (Ramonda Ecommerce (new) fixed bugs)
 
 
     public function country()
@@ -183,23 +100,11 @@ class User extends Authenticatable
     }
 
 
-<<<<<<< HEAD
-
-//    public function comments()
-//    {
-//        return $this->morphMany(Comment::class, 'commentable');
-//    }
-
-
-    public function getIsAdminAttribute(): bool
-    {
-        return $this->roles()->where('role_id', 1)->exists();
-=======
     public function getIsAdminAttribute(): bool
     {
         return $this->hasRole('Admin');
->>>>>>> 0c61f56 (Ramonda Ecommerce (new) fixed bugs)
     }
+
 
     public function getGravatarAttribute()
     {

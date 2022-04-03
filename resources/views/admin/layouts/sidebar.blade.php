@@ -9,30 +9,12 @@
             {{ config('app.name') }}
 
 
-            @switch(auth()->user()->role()->name)
+            @switch(auth()->user()->role)
                 @case(ucfirst("admin"))
-                <span
-                        class="badge bg-gradient-dark">{{ auth()->user()->role()->name }}</span>
-                @break
-                @case(ucfirst("user"))
-                <span
-                        class="badge badge-pill badge-success">{ auth()->user()->role()->name }}</span>
-                @break
-                @case(ucfirst("subscriber"))
-                <span
-                        class="badge badge-pill badge-warning text-dark">{{ auth()->user()->role()->name }}</span>
-                @break
-                @case(ucfirst("partner"))
-                <span
-                        class="badge badge-pill badge-info">{{ auth()->user()->role()->name }}</span>
-                @break
-                @case(ucfirst("author"))
-                <span
-                        class="badge badge-pill badge-primary">{{ auth()->user()->role()->name }}</span>
+                <span class="badge bg-gradient-dark">{{ auth()->user()->role }}</span>
                 @break
                 @default
-                <span
-                        class="badge badge-pill badge-danger">{{ auth()->user()->role()->name }}</span>
+                <span class="badge badge-pill badge-danger">{{ auth()->user()->role }}</span>
             @endswitch
 
         </div>
@@ -43,7 +25,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item @if(\Illuminate\Support\Str::contains(request()->route()->getName(), 'admin')) active @endif">
-        <a class="nav-link" href="{{route('admin')}}">
+        <a class="nav-link" href="{{ route('admin') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -52,7 +34,7 @@
 {{--    <hr class="sidebar-divider">--}}
 
 <!-- Nav Item - Tables -->
-    @if (auth()->check() && auth()->user()->hasRole('admin'))
+    @if (auth()->check() && auth()->user()->hasRole('Admin'))
         <li class="nav-item @if(\Illuminate\Support\Str::contains(request()->route()->getName(), ['users', 'roles', 'permissions'])) active @endif">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
                aria-expanded="true" aria-controls="collapseTwo">

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Permission;
-use App\Role;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -14,7 +14,7 @@ class RolesController extends Controller
     public function index()
     {
         return view('admin.roles')->with([
-            'roles' => Role::withTrashed()->get(),
+            'roles' => Role::all(),
             'permissions' => Permission::all()
         ]);
     }
@@ -31,13 +31,7 @@ class RolesController extends Controller
             'name' => $request->role,
         ]);
 
-        $role->permissions()->attach($request->permissions);
-    }
-
-
-    public function show($id)
-    {
-        //
+        $role->givePermissionTo($request->input('permissions'));
     }
 
 
@@ -45,7 +39,7 @@ class RolesController extends Controller
     {
         return view('admin.roles.edit_role', [
             'role' => Role::findOrFail($id),
-            'permissions' => Permission::all()
+            'other_permissions' => Permission::where('id', '!=', $id)->get(),
         ]);
     }
 
@@ -56,7 +50,7 @@ class RolesController extends Controller
             'name' => ['required', 'string', 'max:255'],
         ]);
 
-        $role->permissions()->sync(request()->input('permissions'));
+        $role->syncPermissions(request()->input('permissions'));
         $role->update($inputs);
     }
 

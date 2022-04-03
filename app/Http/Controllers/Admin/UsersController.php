@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Country;
 use App\Http\Controllers\Controller;
-use App\Role;
 use App\User;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
@@ -37,13 +38,13 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $user = User::create([
-            'name' => $request->name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'email' => $request->email,
             'username' => $request->username,
             'password' => $request->password,
             'country_id' => $request->country,
             'address' => $request->address,
-            'is_active' => $request->is_active,
         ]);
 
         if (request()->hasFile('avatar')) {
@@ -54,7 +55,8 @@ class UsersController extends Controller
             $user->photo()->create(['url' => 'user.jpg']);
         }
 
-        $user->roles()->sync($request->roles);
+        $user->assignRole($request->input('roles')); // can also: $user->assignRoles($request->input('roles', []));
+
     }
 
     // Edit single user page

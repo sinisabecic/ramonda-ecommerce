@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $account = Account::create(['name' => 'Ramonda LLC']);
+        Account::create(['name' => 'Ramonda LLC']);
         Country::create(['name' => 'Montenegro', 'short_name' => 'ME']);
 
                // Create Permissions
@@ -65,7 +65,7 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'Becic',
             'username' => 'sinisa',
             'email' => 'sinisa.becic@outlook.com',
-            'password' => Hash::make('sinisa94'),
+            'password' => 'sinisa94', // Model has set password attribute method
             'country_id' => 1,
         ]);
         $user = User::create([
@@ -74,7 +74,7 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'Rodriguez',
             'username' => 'ava',
             'email' => 'ava@ramonda.me',
-            'password' => Hash::make('sinisa94'),
+            'password' => 'sinisa94', // Model has set password attribute method
             'country_id' => 1,
         ]);
         $user->photo()->create(['url' => 'default.png']);

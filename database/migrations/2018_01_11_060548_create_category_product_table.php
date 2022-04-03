@@ -20,11 +20,10 @@ class CreateCategoryProductTable extends Migration
             $table->foreign('product_id')->references('id')
                 ->on('products')->onDelete('cascade');
 
-<<<<<<< HEAD
-            $table->bigInteger('category_id')->unsigned()->nullable();
-=======
+
+            // $table->bigInteger('category_id')->unsigned()->nullable();
             $table->integer('category_id')->unsigned()->nullable();
->>>>>>> 0c61f56 (Ramonda Ecommerce (new) fixed bugs)
+
             $table->foreign('category_id')->references('id')
                 ->on('category')->onDelete('cascade');
 

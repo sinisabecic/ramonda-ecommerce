@@ -50,8 +50,12 @@
                     @method('patch')
                     @csrf
                     <div class="form-control">
-                        <input id="name" type="text" name="name" value="{{ old('name', $user->name) }}"
-                               placeholder="Name" required>
+                        <input id="first_name" type="text" name="first_name" value="{{ old('first_name', $user->first_name) }}"
+                               placeholder="Firstname" required>
+                    </div>
+                    <div class="form-control">
+                        <input id="last_name" type="text" name="last_name" value="{{ old('last_name', $user->last_name) }}"
+                               placeholder="Lastname" required>
                     </div>
                     <div class="form-control">
                         <input id="email" type="email" name="email" value="{{ old('email', $user->email) }}"

@@ -14,11 +14,8 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-<<<<<<< HEAD
-            $table->id();
-=======
+            // $table->id();
             $table->increments('id');
->>>>>>> 0c61f56 (Ramonda Ecommerce (new) fixed bugs)
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->string('details')->nullable();

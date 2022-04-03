@@ -67,7 +67,8 @@ class UsersController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'.auth()->id(),
             'password' => 'sometimes|nullable|string|min:6|confirmed',
         ]);
@@ -81,7 +82,7 @@ class UsersController extends Controller
             return back()->with('success_message', 'Profile updated successfully!');
         }
 
-        $user->password = bcrypt($request->password);
+        $user->password = $request->password;
         $user->fill($input)->save();
 
         return back()->with('success_message', 'Profile (and password) updated successfully!');

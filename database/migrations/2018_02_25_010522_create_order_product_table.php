@@ -19,12 +19,12 @@ class CreateOrderProductTable extends Migration
             $table->foreign('order_id')->references('id')
                 ->on('orders')->onUpdate('cascade')->onDelete('set null');
 
-<<<<<<< HEAD
-            $table->bigInteger('product_id')->unsigned()->nullable();
-//  $table->integer('product_id')->unsigned()->nullable();
-=======
+
+            // $table->bigInteger('product_id')->unsigned()->nullable();
+            //  $table->integer('product_id')->unsigned()->nullable();
+
             $table->integer('product_id')->unsigned()->nullable();
->>>>>>> 0c61f56 (Ramonda Ecommerce (new) fixed bugs)
+
             $table->foreign('product_id')->references('id')
                 ->on('products')->onUpdate('cascade')->onDelete('set null');
 

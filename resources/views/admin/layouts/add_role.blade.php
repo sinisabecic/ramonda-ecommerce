@@ -1,4 +1,4 @@
-<div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
+<div class="modal animated fadeIn" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -33,17 +33,14 @@
                         <label for="permissions"
                                class="col-md-4 col-form-label text-md-right">{{ __('Permissions') }}</label>
                         <div class="col-md-6">
-                            @foreach ($permissions as $permission)
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="permissions[]"
-                                           value="{{ $permission->id }}" id="{{ $permission->name }}">
-                                    <label for="{{ $permission->name }}" class="form-check-label">
-                                        {{ $permission->name }}
-                                    </label>
-                                </div>
-                            @endforeach
+                            <select class=roles-multiple form-control" name="permissions[]" multiple="multiple">
+                                @foreach ($permissions as $permission)
+                                    <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
+
 
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
@@ -60,6 +57,4 @@
         </div>
     </div>
 </div>
-
-
 

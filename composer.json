@@ -9,12 +9,8 @@
   "type": "project",
   "require": {
     "php": "^7.2.5|^8.0",
-<<<<<<< HEAD
-    "ext-intl": "*",
-=======
     "ext-exif": "*",
     "ext-gd": "*",
->>>>>>> 0c61f56 (Ramonda Ecommerce (new) fixed bugs)
     "ext-json": "*",
     "algolia/algoliasearch-client-php": "2.2",
     "bumbummen99/shoppingcart": "^4.1",
@@ -32,10 +28,7 @@
     "laravel/ui": "2.4",
     "nicolaslopezj/searchable": "^1.13",
     "nunomaduro/collision": "^4.1",
-<<<<<<< HEAD
-=======
     "spatie/laravel-permission": "^5.5",
->>>>>>> 0c61f56 (Ramonda Ecommerce (new) fixed bugs)
     "unisharp/laravel-filemanager": "^2.3"
   },
   "require-dev": {

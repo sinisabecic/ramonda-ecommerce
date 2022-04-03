@@ -25,8 +25,11 @@
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
 
-                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}"
-                           placeholder="Name" required autofocus>
+                    <input id="firstname" type="text" class="form-control" name="first_name" value="{{ old('first_name') }}"
+                           placeholder="Firstname" required autofocus>
+
+                    <input id="lastname" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}"
+                           placeholder="Lastname" required autofocus>
 
                     <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}"
                            placeholder="Email" required>
@@ -37,12 +40,12 @@
 
                     <select class="form-control" name="country" id="country">
                         @foreach ($countries as $country)
-                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                            <option value="{{ old('country', $country->id) }}">{{ $country->name }}</option>
                         @endforeach
                     </select>
 
                     <input id="address" type="text" class="form-control" name="address" value="{{ old('address') }}"
-                           placeholder="Address" autofocus>
+                           placeholder="City, address" autofocus>
 
 
                     <input id="password" type="password" class="form-control" name="password" placeholder="Password"

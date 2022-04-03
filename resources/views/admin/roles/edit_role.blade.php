@@ -24,26 +24,21 @@
                     </div>
                 </div>
 
-
                 <div class="form-group row">
                     <label for="permissions"
                            class="col-md-4 col-form-label text-md-right">{{ __('Permissions') }}</label>
                     <div class="col-md-6">
-                        @foreach ($permissions as $permission)
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="permissions[]"
-                                       value="{{ $permission->id }}" id="{{ $permission->name }}"
-
-                                       @isset($role) @if(in_array($permission->id, $role->permissions->pluck('id')->toArray())) checked @endif @endisset
-                                >
-
-                                <label for="{{ $permission->name }}" class="form-check-label">
-                                    {{ $permission->name }}
-                                </label>
-                            </div>
-                        @endforeach
+                        <select class="roles-multiple form-control" name="permissions[]" multiple="multiple">
+                            @foreach ($role->permissions as $permission)
+                                <option value="{{ $permission->id }}" selected>{{ $permission->name }}</option>
+                            @endforeach
+                            @foreach ($other_permissions as $permission)
+                                <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
+
 
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4">

@@ -24,8 +24,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
-    @yield('style')
 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        span.select2 {
+            width: 100%!important;
+        }
+    </style>
+
+    @yield('style')
 </head>
 
 <body id="page-top">

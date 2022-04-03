@@ -108,7 +108,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapRolesRoutes()
     {
         Route::prefix('admin')
-            ->middleware(['web', 'auth', 'role:admin'])
+            ->middleware(['web', 'auth', 'admin']) // Also can 'role:Admin'
             ->namespace($this->admin)
             ->group(base_path('routes/web/roles.php'));
     }
