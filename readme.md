@@ -1,6 +1,6 @@
 # Ramonda Ecommerce
 
-![Ramonda Ecommerce](https://github.com/sinisabecic/ramonda-ecommerce/blob/master/public/img/presentation.gif)
+![Ramonda Ecommerce](https://github.com/sinisabecic/ramonda-ecommerce/blob/main/public/img/presentation.gif)
 
 ## Installation
 
