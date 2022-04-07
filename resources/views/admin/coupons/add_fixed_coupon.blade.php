@@ -1,4 +1,4 @@
-<div class="modal fade" id="addCouponFixedModal" tabindex="-1" aria-labelledby="addCouponFixedModalLabel"
+<div class="modal animated--fade-in" id="addCouponFixedModal" tabindex="-1" aria-labelledby="addCouponFixedModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

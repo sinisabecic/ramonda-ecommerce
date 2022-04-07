@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
@@ -14,9 +15,7 @@ use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
-    use Notifiable;
-    use SoftDeletes;
-    use HasRoles;
+    use Notifiable, SoftDeletes, HasRoles, HasApiTokens;
 
 
     /**
@@ -58,7 +57,7 @@ class User extends Authenticatable
 
     public function getNameAttribute()
     {
-        return $this->first_name.' '.$this->last_name;
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     public function scopeOrderByName($query)
@@ -69,8 +68,8 @@ class User extends Authenticatable
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = Hash::needsRehash($password) ?
-                                        Hash::make($password) :
-                                        $password;
+            Hash::make($password) :
+            $password;
 //        $this->attributes['password'] = Hash::make($password);
     }
 

@@ -10,8 +10,6 @@ use Spatie\Permission\Models\Role;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
-
-//use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -21,7 +19,6 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
 
-
 class UsersController extends Controller
 {
     //? Users page
@@ -30,12 +27,10 @@ class UsersController extends Controller
     {
         return view('admin.users',
             [
-                'users' => User::with('photos')
+                'users' => User::with('photos', 'roles')
                     ->where('id', '!=', auth()->id())
                     ->withTrashed()
                     ->get(),
-                'countries' => Country::all(),
-                'roles' => Role::all()
             ]);
     }
 
@@ -61,7 +56,7 @@ class UsersController extends Controller
             $user->photo()->create(['url' => 'user.jpg']);
         }
 
-        $user->assignRole($request->input('roles')); // can also: $user->assignRoles($request->input('roles', []));
+        $user->assignRole($request->input('roles', [])); // can also: $user->assignRoles($request->input('roles'));
 
     }
 

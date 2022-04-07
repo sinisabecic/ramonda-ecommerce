@@ -2,15 +2,17 @@
 
 namespace App;
 
+use Laravel\Sanctum\HasApiTokens;
 use Laravel\Scout\Searchable;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Model;
 use Nicolaslopezj\Searchable\SearchableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Product extends Model
 {
-    use SoftDeletes, SearchableTrait, Searchable;
+    use SoftDeletes, SearchableTrait, Searchable, Sluggable, HasApiTokens;
 
 //    protected $fillable = ['quantity'];
     protected $guarded = [];
@@ -98,5 +100,14 @@ class Product extends Model
     public function scopeMightAlsoLike($query)
     {
         return $query->inRandomOrder()->take(4);
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
     }
 }

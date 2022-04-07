@@ -1,4 +1,4 @@
-<div class="modal animated fadeIn" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+<div class="modal animated--fade-in" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -104,9 +104,7 @@
 
                         <div class="col-md-6">
                             <select class="form-control" name="country" id="country">
-                                @foreach ($countries as $country)
-                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
-                                @endforeach
+                                <option value="1">Montenegro</option>
                             </select>
                         </div>
                     </div>
@@ -148,7 +146,7 @@
                                class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
                         <div class="col-md-6">
                             <select class="role-select form-control" name="role">
-                                @foreach ($roles as $role)
+                                @foreach (\Spatie\Permission\Models\Role::all() as $role)
                                     <option value="{{ $role->name }}">{{ $role->name }}</option>
                                 @endforeach
                             </select>

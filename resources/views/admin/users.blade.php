@@ -108,39 +108,13 @@
                             </td>
                             <td class="role">
                                 @foreach($user->roles as $role)
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item m-0 p-0 py-1 bg-transparent">
-                                            @switch($role->name)
-                                                @case(ucfirst("admin"))
-                                                <span
-                                                        class="badge badge-pill badge-dark rounded-0">{{ $role->name }}</span>
-                                                @break
-                                                @case(ucfirst("user"))
-                                                <span
-                                                        class="badge badge-pill badge-success rounded-0">{{ $role->name }}</span>
-                                                @break
-                                                @case(ucfirst("subscriber"))
-                                                <span
-                                                        class="badge badge-pill badge-warning text-dark rounded-0">{{ $role->name }}</span>
-                                                @break
-                                                @case(ucfirst("partner"))
-                                                <span
-                                                        class="badge badge-pill badge-info rounded-0">{{ $role->name }}</span>
-                                                @break
-                                                @case(ucfirst("author"))
-                                                <span
-                                                        class="badge badge-pill badge-primary rounded-0">{{ $role->name }}</span>
-                                                @break
-                                                @case(ucfirst("nomad"))
-                                                <span
-                                                        class="badge badge-pill badge-danger rounded-0">{{ $role->name }}</span>
-                                                @break
-                                                @default(ucfirst("nomad"))
-                                                <span
-                                                        class="badge badge-pill badge-danger rounded-0">{{ $role->name }}</span>
-                                            @endswitch
-                                        </li>
-                                    </ul>
+                                    @switch($role->name)
+                                        @case(ucfirst("admin"))
+                                        <span class="badge badge-pill badge-success rounded-0">{{ $role->name }}</span>
+                                        @break
+                                        @default
+                                        <span class="badge badge-pill badge-dark rounded-0">{{ $role->name }}</span>
+                                    @endswitch
                                 @endforeach
                             </td>
                             <td class="small font-weight-bold">

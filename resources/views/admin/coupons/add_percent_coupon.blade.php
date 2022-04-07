@@ -1,4 +1,5 @@
-<div class="modal fade" id="addCouponPercentModal" tabindex="-1" aria-labelledby="addCouponPercentModalLabel"
+<div class="modal animated--fade-in" id="addCouponPercentModal" tabindex="-1"
+     aria-labelledby="addCouponPercentModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

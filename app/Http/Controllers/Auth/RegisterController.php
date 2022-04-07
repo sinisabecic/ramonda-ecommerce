@@ -91,21 +91,11 @@ class RegisterController extends Controller
             'address' => $input['address'],
         ]);
 
-        //! Not for now
-//        if (request()->hasFile('avatar')) {
-//            $avatar = request()->file('avatar')->getClientOriginalName();
-//            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
-//            $user->photo()->create(['url' => $avatar]);
-//        } else {
-//            $user->photo()->create(['url' => 'user.jpg']);
-//        }
-
         $user->photo()->create(['url' => 'user.jpg']);
         $user->assignRole('User');
-//        $user->roles()->sync([5]); // every new registered user is 'nomad'
 
-        //Mail::to($user->email)->send(new WelcomeMail());
-//        return $user && response()->json();
+//      Mail::to($user->email)->send(new WelcomeMail());
+//      return $user && response()->json();
     }
 
 
@@ -123,6 +113,7 @@ class RegisterController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse([], 201)
-            : redirect($this->redirectPath());
+            : redirect()->route('login')->with('success_message', 'Registration success. You can login.');
+        // redirect($this->redirectPath())
     }
 }
