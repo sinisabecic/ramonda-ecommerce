@@ -4,7 +4,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-xl">
             <form method="POST" action="" id="editRoleForm" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')

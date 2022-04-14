@@ -30,7 +30,7 @@
                        cellspacing="0">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        {{-- <th>ID</th> --}}
                         <th>Permission</th>
                         <th>Created</th>
                         <th>Created at</th>
@@ -42,12 +42,11 @@
                     @if($permissions)
                         @foreach($permissions as $permission)
                             <tr class="row-permission" data-id="{{ $permission->id }}">
-                                <td><span class="small">{{ $permission->id }}</span></td>
+                                {{--                                <td><span class="small" id="permissionId">{{ $permission->id }}</span></td>--}}
                                 <td class="permission">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item m-0 p-0 py-1 bg-transparent">
-                                            <span
-                                                    class="badge badge-pill badge-primary rounded-0">{{ $permission->name }}</span>
+                                            <span class="badge badge-pill badge-primary rounded-0">{{ $permission->name }}</span>
                                         </li>
                                     </ul>
                                 </td>

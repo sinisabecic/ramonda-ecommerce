@@ -410,7 +410,6 @@ $(document).ready(function () {
                     columns: ':visible' // dinamicki odabir kolona za pdf export
                 },
             },
-
             {
                 extend: 'print',
                 text: '<span>Print</span> <i class="fas fa-print"></i>',
@@ -466,7 +465,7 @@ $(document).ready(function () {
             targets: [-2], // -1 je zadnja kolona
             visible: false,
         }],
-        order: [[0, 'asc']], //? sortiraj po datumu registracije
+        order: [[1, 'asc']], //? sortiraj po datumu registracije
     });
 
     //? Categories

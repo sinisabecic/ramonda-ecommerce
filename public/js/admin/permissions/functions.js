@@ -10,14 +10,29 @@ $(document).ready(function () {
         e.preventDefault();
 
         var formData = new FormData(this);
+        var permissionId = $('#permissionId').text() + 1;
+        var permissionName = $('#permission').val();
+        var currentdate = new Date();
+        var datetime = currentdate.getDate() + ""
+            + (currentdate.getMonth() + 1) + ""
+            + currentdate.getFullYear() + "_"
+            + currentdate.getHours() + ""
+            + currentdate.getMinutes() + ""
+            + currentdate.getSeconds();
 
         $.ajax({
             method: 'POST',
-            url: "{{ route('permissions.store') }}",
+            url: "/admin/permissions",
             data: formData,
             success: function () {
                 $('#addPermissionModal').modal('hide');
                 clearFields('#addPermissionModal');
+                $('#dataTablePermissions > tbody').before('' +
+                    '<tr class="row-permission">' +
+                    '<td><ul class="list-group list-group-flush"><li class="list-group-item m-0 p-0 py-1 bg-transparent"><span class="badge badge-pill badge-primary rounded-0">' + permissionName + '</span></li></ul></td>' +
+                    '<td><span class="badge badge-pill badge-secondary small">' + datetime + '</span></td>' +
+                    '<td><span class="small">' + formData.id + '</span></td>' +
+                    '</tr>');
 
                 Swal.fire({
                     title: 'Permission added!',
