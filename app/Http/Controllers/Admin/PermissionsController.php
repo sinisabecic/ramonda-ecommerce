@@ -21,7 +21,7 @@ class PermissionsController extends Controller
         Permission::create([
             'name' => $request->permission,
         ]);
-        return redirect()->back()->with('success_message', 'Permission successfully created.');
+        return redirect()->back()->with(['success_message' => 'Permission successfully created.']);
     }
 
 

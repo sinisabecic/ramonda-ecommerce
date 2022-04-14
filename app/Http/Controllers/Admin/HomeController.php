@@ -10,10 +10,12 @@ class HomeController extends Controller
 {
     public function __invoke()
     {
-        if (auth()->user()->hasRole('Admin')) {
-            return view('admin.home');
-        } else {
-            abort(403, 'You are not authorized!');
-        }
+//        if (auth()->user()->hasRole('Admin')) {
+//            return view('admin.home');
+//        } else {
+//            abort(403, 'You are not authorized!');
+//        }
+        abort_if(!auth()->user()->hasRole('Admin'), 403, 'You are not authorized!');
+        return view('admin.home');
     }
 }

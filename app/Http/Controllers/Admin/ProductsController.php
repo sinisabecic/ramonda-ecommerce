@@ -10,23 +10,28 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProductsController extends Controller
 {
 
     public function index()
     {
-        return view('admin.products')
-            ->with([
-                'products' => Product::withTrashed()->orderByDesc('created_at')->get(),
-            ]);
+        abort_if(Gate::denies('product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return view('admin.products', [
+            'products' => Product::withTrashed()->orderByDesc('created_at')->get(),
+        ]);
     }
 
 
     public function create()
     {
+        abort_if(Gate::denies('product_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return view('admin.products.create')->with([
             'categories' => Category::all(),
         ]);
@@ -35,6 +40,8 @@ class ProductsController extends Controller
 
     public function store(Request $request)
     {
+        abort_if(Gate::denies('product_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $product = new Product;
 
         $inputs = $request->validate([
@@ -72,29 +79,26 @@ class ProductsController extends Controller
         }
 
         $createdProduct = $product->create($inputs);
-        $createdProduct->categories()->sync($request->categories);
-    }
-
-
-    public function show($id)
-    {
-        return view('posts.show', [
-            'post' => Product::findOrFail($id),
-        ]);
+        $createdProduct->categories()->sync($request->categories, []);
     }
 
 
     public function edit($id)
     {
-        return view('admin.products.edit')->with([
-            'product' => Product::findOrFail($id),
-            'categories' => Category::all(),
-        ]);
+        abort_if(Gate::denies('product_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return view('admin.products.edit',
+            [
+                'product' => Product::findOrFail($id),
+                'categories' => Category::all(),
+            ]);
     }
 
 
     public function update(Product $product)
     {
+        abort_if(Gate::denies('product_update'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $inputs = request()->validate([
             'name' => ['required', 'string'],
             'slug' => ['required', 'string'],
