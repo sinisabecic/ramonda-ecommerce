@@ -16,7 +16,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected $namespace = 'App\Http\Controllers';
     protected $admin = 'App\Http\Controllers\Admin';
-    protected $blog = 'App\Http\Controllers\Blog';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -53,7 +52,6 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapCategoriesRoutes();
         $this->mapPhotosRoutes();
-        $this->mapBlogRoutes();
         $this->mapCommentsRoutes();
 
         $this->mapProductsRoutes();
@@ -71,14 +69,6 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/web.php'));
-    }
-
-    protected function mapBlogRoutes()
-    {
-        Route::prefix('blog')
-            ->middleware('web')
-            ->namespace($this->blog)
-            ->group(base_path('routes/web/blog.php'));
     }
 
     protected function mapPostsRoutes()
