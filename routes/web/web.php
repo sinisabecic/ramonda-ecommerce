@@ -14,11 +14,6 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
-Route::group(['prefix' => 'blog', 'namespace' => 'Blog'], function () {
-
-    Route::get('/', 'HomeController@index')->name('blog.home');
-    Route::get('/post/{slug}', 'HomeController@show')->name('blog.post');
-});
 
 Route::get('/', 'LandingPageController@index')->name('landing-page');
 
