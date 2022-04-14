@@ -19,14 +19,11 @@ use Illuminate\Support\Facades\Route;
 //});
 
 
-Route::group([
-    'prefix' => 'v1',
-    'as' => 'api.',
-    'namespace' => 'Api\V1\Admin',
-    'middleware' => 'auth:sanctum'], function () {
+Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', 'middleware' => 'auth:sanctum'], function () {
 
     // Users
     Route::apiResource('users', 'UsersApiController');
+    Route::post('users/register', 'AuthController@register');
 
     // Products
     Route::apiResource('products', 'ProductsApiController');
@@ -36,5 +33,9 @@ Route::group([
     Route::apiResource('accounts', 'AccountsApiController');
 });
 
-//Route::apiResource('users', 'Api\V1\Admin\UsersApiController')
-//    ->middleware('api:sanctum');
+Route::get('/user/tokens', function () {
+    $user = \App\User::find(1);
+    return request()->$user->currentAccessToken()->token;
+});
+
+//Route::post('/v1/users/register', 'Api\V1\Admin\AuthController@register');
