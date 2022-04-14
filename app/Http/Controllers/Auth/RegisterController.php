@@ -93,9 +93,10 @@ class RegisterController extends Controller
 
         $user->photo()->create(['url' => 'user.jpg']);
         $user->assignRole('User');
+        $user->createToken('guest-access', ['web']);
+//        $user->createToken('ramonda-token-new-user')->plainTextToken;
 
 //      Mail::to($user->email)->send(new WelcomeMail());
-//      return $user && response()->json();
     }
 
 
