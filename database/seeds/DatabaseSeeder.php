@@ -72,6 +72,7 @@ class DatabaseSeeder extends Seeder
             'password' => 'password', // Model has set password attribute method
             'country_id' => 1,
         ]);
+        $admin->photo()->create(['url' => 'default.png']);
 
         $user = User::create([
             'account_id' => 1,

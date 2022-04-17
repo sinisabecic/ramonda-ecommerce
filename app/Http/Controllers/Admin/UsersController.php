@@ -79,7 +79,7 @@ class UsersController extends Controller
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user), 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
             'email' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
             'country_id' => ['string'],
-            'address' => ['string'],
+            'address' => ['string', 'nullable'],
         ]);
 
         $user->update($inputs);
