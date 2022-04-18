@@ -14,7 +14,7 @@
 8. Give a look on `.env.example` file and set your values following that boilerplate
 9. `php artisan migrate --seed`. For migrating data
 10. After migrating tables, paste this [SQL script](https://www.mycompiler.io/view/3xRzQNMfMaj) to import some required
-   data
+    data
 10. Login data: email: `admin@ramonda.me`, password: `sinisa94`. Go to `/admin` if you want to access the admin
     dashboard
 11. Set your [Stripe](https://stripe.com/docs) credentials in your `.env` file. Specifically `STRIPE_KEY`
@@ -28,8 +28,6 @@
 
 I have used the [bumbummen99/LaravelShoppingcart](https://github.com/bumbummen99/LaravelShoppingcart) package for
 shopping cart.
-
-## PayPal coming soon...
 
 ## Credits
 
