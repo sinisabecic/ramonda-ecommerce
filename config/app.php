@@ -155,7 +155,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
-        Yajra\DataTables\DataTablesServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */

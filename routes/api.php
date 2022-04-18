@@ -14,11 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
 
-
+//? Laravel API Sanctum routes (v1)
 Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', 'middleware' => 'auth:sanctum'], function () {
 
     // Users
@@ -33,9 +30,13 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     Route::apiResource('accounts', 'AccountsApiController');
 });
 
-Route::get('/user/tokens', function () {
-    $user = \App\User::find(1);
-    return request()->$user->currentAccessToken()->token;
-});
 
-//Route::post('/v1/users/register', 'Api\V1\Admin\AuthController@register');
+//? Laravel API Passport routes (v2)
+//todo With BEARER token
+Route::group(['prefix' => 'v2', 'as' => 'api2.', 'namespace' => 'Api\V2\Admin', 'middleware' => 'auth:api'], function () {
+
+    Route::get('/user', 'UsersApiController@getUserByToken');
+    Route::apiResource('users', 'UsersApiController');
+//    Route::get('/users/{user}', 'UsersApiController@show');
+
+});

@@ -97,15 +97,3 @@ Route::group([
     Route::post('/admin/products/coupons/deleteCoupons', 'CouponsController@deleteCoupons')
         ->name('products.coupons.deleteCoupons');
 });
-
-
-//? Stripe test routes
-Route::get('/stripe/customers', function () {
-    $stripe = Stripe::make(config('services.stripe.secret'));
-
-    $customers = $stripe->customers()->all();
-
-    foreach ($customers['data'] as $customer) {
-        return $customer['email'];
-    }
-});
