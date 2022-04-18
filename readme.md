@@ -12,7 +12,8 @@
 6. `php artisan key:generate`
 7. Set your database credentials in your `.env` file
 8. Give a look on `.env.example` file and set your values following that boilerplate
-9. After migrating tables, paste this [SQL script](https://www.mycompiler.io/view/3xRzQNMfMaj) to import some required
+9. `php artisan migrate --seed`. For migrating data
+10. After migrating tables, paste this [SQL script](https://www.mycompiler.io/view/3xRzQNMfMaj) to import some required
    data
 10. Login data: email: `admin@ramonda.me`, password: `sinisa94`. Go to `/admin` if you want to access the admin
     dashboard
