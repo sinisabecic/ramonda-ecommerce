@@ -19,15 +19,10 @@ class User extends Authenticatable
 {
     use Notifiable, SoftDeletes, HasRoles, HasApiTokens;
 
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $table = 'users';
     protected $guarded = [];
     protected $dates = ['deleted_at'];
+//    protected $guard_name = 'web'; // If there is problem on api requests
 
     /**
      * The attributes that should be hidden for arrays.

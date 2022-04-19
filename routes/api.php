@@ -32,11 +32,9 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
 
 //? Laravel API Passport routes (v2)
-//todo With BEARER token
+//todo With Bearer token
 Route::group(['prefix' => 'v2', 'as' => 'api2.', 'namespace' => 'Api\V2\Admin', 'middleware' => 'auth:api'], function () {
 
     Route::get('/user', 'UsersApiController@getUserByToken');
     Route::apiResource('users', 'UsersApiController');
-//    Route::get('/users/{user}', 'UsersApiController@show');
-
 });
