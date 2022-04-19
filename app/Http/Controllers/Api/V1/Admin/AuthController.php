@@ -48,7 +48,5 @@ class AuthController extends Controller
 
         return response($response)
             ->setStatusCode(201, 'Created');
-
-
     }
 }
