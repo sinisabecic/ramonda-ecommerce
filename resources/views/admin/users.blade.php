@@ -94,7 +94,7 @@
                                 <p class="small"><strong>{{ $user->username }}</strong></p>
                             </td>
                             <td>
-                                @if ($user->photos)
+                                @if ($user->photo)
                                     <img src="{{ $user->avatar() }}" alt="{{ $user->photo->url }}"
                                          height="43px"
                                          width="43px"
