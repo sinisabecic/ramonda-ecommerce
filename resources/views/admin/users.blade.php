@@ -94,12 +94,12 @@
                                 <p class="small"><strong>{{ $user->username }}</strong></p>
                             </td>
                             <td>
-                                @foreach ($user->photos as $img)
+                                @if ($user->photos)
                                     <img src="{{ $user->avatar() }}" alt="{{ $user->photo->url }}"
                                          height="43px"
                                          width="43px"
                                          class="img-cover rounded">
-                                @endforeach
+                                @endif
                             </td>
                             <td>
                                 <a href="{{ route("users.edit", $user->id) }}">
