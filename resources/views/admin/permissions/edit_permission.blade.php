@@ -5,7 +5,8 @@
 
     <div class="row">
         <div class="col-sm-6">
-            <form method="POST" action="" id="editPermissionForm" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('permissions.update', $permission->id) }}" id=""
+                  enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 

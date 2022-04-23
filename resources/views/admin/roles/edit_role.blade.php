@@ -5,7 +5,8 @@
 
     <div class="row">
         <div class="col-xl">
-            <form method="POST" action="" id="editRoleForm" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('roles.update', $role->id) }}" id=""
+                  enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 

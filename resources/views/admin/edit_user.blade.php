@@ -16,22 +16,6 @@
 
     <div class="row">
         <div class="col-sm-6">
-            @if(session('success_message'))
-                <div class="alert alert-success alert-dismissible fade show"
-                     role="alert">
-                    {{ session('success_message') }}
-                    Go to <a href="{{ route('users') }}" class="alert-link">users list</a>.
-                </div>
-            @endif
-            @if(count($errors) > 0)
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
 
             <form method="POST" action="{{ route('users.update', $user->id)  }}" enctype="multipart/form-data"
                   id="">

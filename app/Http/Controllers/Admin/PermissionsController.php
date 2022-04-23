@@ -40,6 +40,7 @@ class PermissionsController extends Controller
         ]);
 
         $permission->update($inputs);
+        return redirect()->route('permissions')->with('success_message', 'Permission edited.');
     }
 
 

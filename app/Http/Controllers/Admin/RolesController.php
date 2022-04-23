@@ -32,6 +32,7 @@ class RolesController extends Controller
         ]);
 
         $role->givePermissionTo($request->input('permissions'));
+        return redirect()->route('roles')->with('success_message', 'Role added.');
     }
 
 
@@ -52,6 +53,7 @@ class RolesController extends Controller
 
         $role->syncPermissions(request()->input('permissions'));
         $role->update($inputs);
+        return redirect()->route('roles')->with('success_message', 'Role edited.');
     }
 
 
