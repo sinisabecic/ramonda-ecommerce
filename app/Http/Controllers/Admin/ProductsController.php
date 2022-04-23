@@ -80,6 +80,9 @@ class ProductsController extends Controller
 
         $createdProduct = $product->create($inputs);
         $createdProduct->categories()->sync($request->categories, []);
+
+        if ($createdProduct)
+            return redirect()->route('admin.products')->with('success_message', 'Product added.');
     }
 
 

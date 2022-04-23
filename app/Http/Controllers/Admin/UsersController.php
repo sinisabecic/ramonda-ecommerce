@@ -57,7 +57,9 @@ class UsersController extends Controller
         }
 
         $user->assignRole($request->input('roles', [])); // can also: $user->assignRoles($request->input('roles'));
+        $user->createToken('Ramonda Token')->accessToken;
 
+        return redirect()->route('users')->with('success_message', 'User added.');
     }
 
     // Edit single user page

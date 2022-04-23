@@ -6,7 +6,7 @@
 
 @section('content')
 
-    <form method="POST" action="" id="addProductForm" enctype="multipart/form-data"
+    <form method="POST" action="{{ route('admin.products.store') }}" id="" enctype="multipart/form-data"
           data-url="{{ route('admin.products.store') }}">
         @csrf
 

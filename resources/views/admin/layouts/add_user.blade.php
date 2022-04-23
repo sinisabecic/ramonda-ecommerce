@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
 
-                <form method="POST" action="" id="addUserForm" data-url="{{ route('users.store') }}"
+                <form method="POST" action="{{ route('users.store') }}" id="" data-url="{{ route('users.store') }}"
                       enctype="multipart/form-data">
                     @csrf
                     @method('POST')
