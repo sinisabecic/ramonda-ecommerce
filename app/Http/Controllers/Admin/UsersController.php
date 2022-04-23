@@ -67,7 +67,7 @@ class UsersController extends Controller
     {
         return view('admin.edit_user', [
             'user' => User::findOrFail($id),
-            'countries' => Country::all(),
+            'countries' => Country::where('id', '!=', User::findOrFail($id)->country->id)->get(),
             'roles' => Role::all(),
         ]);
     }
