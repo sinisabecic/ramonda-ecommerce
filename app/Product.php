@@ -14,7 +14,7 @@ class Product extends Model
 {
     use SoftDeletes, SearchableTrait, Searchable, Sluggable, HasApiTokens;
 
-//    protected $fillable = ['quantity'];
+    //    protected $fillable = ['quantity'];
     protected $guarded = [];
     /**
      * Searchable rules.
@@ -60,12 +60,14 @@ class Product extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class,
+        return $this->belongsToMany(
+            Category::class,
             'category_product',
             'product_id',
             'category_id',
             'id',
-            'id')
+            'id'
+        )
             ->withPivot('created_at');
     }
 

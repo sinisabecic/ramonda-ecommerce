@@ -37,4 +37,5 @@ Route::group(['prefix' => 'v2', 'as' => 'api2.', 'namespace' => 'Api\V2\Admin', 
 
     Route::get('/user', 'UsersApiController@getUserByToken');
     Route::apiResource('users', 'UsersApiController');
+    Route::apiResource('products', 'ProductsApiController');
 });
