@@ -37,5 +37,10 @@ Route::group(['prefix' => 'v2', 'as' => 'api2.', 'namespace' => 'Api\V2\Admin', 
 
     Route::get('/user', 'UsersApiController@getUserByToken');
     Route::apiResource('users', 'UsersApiController');
+});
+
+//! Ostavicu da mogu svi bez tokena da povlace proizvode
+Route::group(['prefix' => 'v2', 'as' => 'api2.', 'namespace' => 'Api\V2\Admin'], function () {
+    //
     Route::apiResource('products', 'ProductsApiController');
 });

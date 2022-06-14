@@ -13,7 +13,7 @@ class ProductsApiController extends Controller
     public function index()
     {
 
-        //! Ostavicu da mogu svi bez tokena da povlace proizvode
+
         // if (!auth()->user()->token()) {
         //     abort(403, 'Unauthorized');
         // }
@@ -33,26 +33,26 @@ class ProductsApiController extends Controller
 
     public function store(Request $request)
     {
-        if (!auth()->user()->tokenCan('products-create')) {
-            abort(403, 'Unauthorized');
-        }
-        //token: 5|v72mn4iVhcCdyr0srKGbDi91LwEMkXvvjyPrYb6l
+        // if (!auth()->user()->tokenCan('products-create')) {
+        //     abort(403, 'Unauthorized');
+        // }
+        // //token: 5|v72mn4iVhcCdyr0srKGbDi91LwEMkXvvjyPrYb6l
 
-        //        $product = Product::create($request->all());
-        $product = new Product();
-        $product->save([
-            $product->name = $request->input('name'),
-            $product->details = $request->input('details'),
-            $product->price = $request->input('price'),
-            $product->description = $request->input('description'),
-            $product->featured = $request->input('featured'),
-            $product->quantity = $request->input('quantity'),
-        ]);
-        $product->categories()->sync($request->input('categories', []));
+        // //        $product = Product::create($request->all());
+        // $product = new Product();
+        // $product->save([
+        //     $product->name = $request->input('name'),
+        //     $product->details = $request->input('details'),
+        //     $product->price = $request->input('price'),
+        //     $product->description = $request->input('description'),
+        //     $product->featured = $request->input('featured'),
+        //     $product->quantity = $request->input('quantity'),
+        // ]);
+        // $product->categories()->sync($request->input('categories', []));
 
-        return response()
-            ->json($product)
-            ->setStatusCode(201, 'Created');
+        // return response()
+        //     ->json($product)
+        //     ->setStatusCode(201, 'Created');
     }
 
     public function show($id)
@@ -71,31 +71,31 @@ class ProductsApiController extends Controller
     // Soft delete. Deactivating products
     public function destroy(Product $product)
     {
-        if (!auth()->user()->tokenCan('products-delete')) {
-            abort(403, 'Unauthorized');
-        }
+        // if (!auth()->user()->tokenCan('products-delete')) {
+        //     abort(403, 'Unauthorized');
+        // }
 
-        //token: 9|XRz8vzLsvVmlBEOvkrJjHEXDwWtEz0MD5sysVg9O
+        // //token: 
 
-        $product->delete();
+        // $product->delete();
 
-        return response()
-            ->json()
-            ->setStatusCode(204, 'Deleted (soft)');
+        // return response()
+        //     ->json()
+        //     ->setStatusCode(204, 'Deleted (soft)');
     }
 
     public function remove($id)
     {
-        if (!auth()->user()->tokenCan('products-remove')) {
-            abort(403, 'Unauthorized');
-        }
+        // if (!auth()->user()->tokenCan('products-remove')) {
+        //     abort(403, 'Unauthorized');
+        // }
 
-        //token: 10|Zx3907VVswDBd2I21SoazT3SiSDudZQWIPeIA9F4
+        // //token: 
 
-        Product::where('id', $id)->forceDelete();
+        // Product::where('id', $id)->forceDelete();
 
-        return response()
-            ->json()
-            ->setStatusCode(204, 'Removed');
+        // return response()
+        //     ->json()
+        //     ->setStatusCode(204, 'Removed');
     }
 }
